@@ -71,7 +71,6 @@ func BasicOperations() {
 	// 用已知的查詢條件，去資料庫查再綁回同一個struct上
 	// 查不到的話就return原本的查詢條件
 	fmt.Println(d)
-	fmt.Println("============================")
 }
 
 func (u User) TableName() string {
