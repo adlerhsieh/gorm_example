@@ -1,7 +1,8 @@
 package main
 
 import (
-// "github.com/jinzhu/gorm"
+	"github.com/jinzhu/gorm"
+	"time"
 )
 
 type User struct {
@@ -18,7 +19,8 @@ type User struct {
 	IgnoredField bool `sql:"-"`
 
 	// Relationship
-	Calendar Calendar
+	Calendar     Calendar
+	Appointments []Appointment `gorm:"many2many:appointment_user"`
 
 	// Others
 
@@ -40,9 +42,20 @@ type User struct {
 }
 
 type Calendar struct {
-	ID     uint
-	Name   string
-	UserID uint
+	ID           uint
+	Name         string
+	UserID       uint
+	Appointments []Appointment `gorm:"ForeignKey:CalenderID"`
+}
+
+type Appointment struct {
+	gorm.Model
+	Subject     string
+	Description string
+	StartTime   time.Time
+	Length      uint
+	CalenderID  uint
+	Attendees   []User `gorm:"many2many:appointment_user"`
 }
 
 var users []User = []User{

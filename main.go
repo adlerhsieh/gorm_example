@@ -10,7 +10,9 @@ func main() {
 	purgeDB(db)
 	crud(db)
 	columnNames(db)
-	relationship(db)
+	oneToOneRelationship(db)
+	oneToManyRelationship(db)
+	manyToManyRelationship(db)
 	defer db.Close()
 }
 
@@ -20,5 +22,8 @@ func purgeDB(db *gorm.DB) {
 	}
 	if db.HasTable(&User{}) {
 		db.DropTable(&User{})
+	}
+	if db.HasTable(&Appointment{}) {
+		db.DropTable(&Appointment{})
 	}
 }

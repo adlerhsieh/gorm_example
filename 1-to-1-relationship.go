@@ -6,9 +6,9 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-func relationship(db *gorm.DB) {
+func oneToOneRelationship(db *gorm.DB) {
 	fmt.Println("============================")
-	fmt.Println("Relationship")
+	fmt.Println("1-to-1 Relationship")
 	fmt.Println("============================")
 
 	db.CreateTable(&Calendar{})
