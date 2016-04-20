@@ -5,6 +5,12 @@ import (
 	"time"
 )
 
+var users []User = []User{
+	User{Username: "foobar", FirstName: "Foo", LastName: "Bar"},
+	User{Username: "helloworld", FirstName: "Hello", LastName: "World"},
+	User{Username: "john", FirstName: "John"},
+}
+
 type User struct {
 	ID uint
 
@@ -45,7 +51,7 @@ type Calendar struct {
 	ID           uint
 	Name         string
 	UserID       uint
-	Appointments []Appointment `gorm:"ForeignKey:CalenderID"`
+	Appointments []Appointment `gorm:"polymorphic:owner"`
 }
 
 type Appointment struct {
@@ -54,12 +60,12 @@ type Appointment struct {
 	Description string
 	StartTime   time.Time
 	Length      uint
-	CalenderID  uint
+	OwnerID     uint
+	OwnerType   string
 	Attendees   []User `gorm:"many2many:appointment_user"`
 }
 
-var users []User = []User{
-	User{Username: "foobar", FirstName: "Foo", LastName: "Bar"},
-	User{Username: "helloworld", FirstName: "Hello", LastName: "World"},
-	User{Username: "john", FirstName: "John"},
+type TaskList struct {
+	gorm.Model
+	Appointments []Appointment `gorm:"polymorphic:owner"`
 }

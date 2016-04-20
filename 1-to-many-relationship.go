@@ -33,5 +33,6 @@ func oneToManyRelationship(db *gorm.DB) {
 	// Queries have to split
 	db.Find(&u).Related(&c, "calendar")
 	db.Find(&c).Related(&a, "appointments")
+	fmt.Println("User -> Calendar -> Appointment")
 	fmt.Println(a)
 }
