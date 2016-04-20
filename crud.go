@@ -6,9 +6,9 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-func BasicOperations() {
+func CRUD() {
 	fmt.Println("============================")
-	fmt.Println("Basic Operations")
+	fmt.Println("CRUD")
 	fmt.Println("============================")
 	// Connection
 	db, err := gorm.Open("mysql", "gorm:gorm@/gorm?charset=utf8&parseTime=True&loc=Local")
@@ -71,6 +71,12 @@ func BasicOperations() {
 	// 用已知的查詢條件，去資料庫查再綁回同一個struct上
 	// 查不到的話就return原本的查詢條件
 	fmt.Println(d)
+
+	// Add index with index_name, column_name
+	db.Model(&User{}).AddIndex("idx_first_name", "first_name")
+	db.Model(&User{}).AddUniqueIndex("idx_last_name", "last_name")
+	// Remove index name
+	db.Model(&User{}).RemoveIndex("idx_first_name")
 }
 
 func (u User) TableName() string {
