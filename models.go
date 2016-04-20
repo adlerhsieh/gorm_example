@@ -5,7 +5,9 @@ import (
 )
 
 type User struct {
-	ID        uint
+	ID uint
+
+	// Set column type
 	Username  string `sql:"type:VARCHAR(255)"`
 	FirstName string
 
@@ -14,6 +16,9 @@ type User struct {
 
 	// Ignored attribute will be treated as attr instead of column
 	IgnoredField bool `sql:"-"`
+
+	// Relationship
+	Calendar Calendar
 
 	// Others
 
@@ -32,6 +37,12 @@ type User struct {
 
 	// Not Null & Unique field
 	// UniqueField string `sql:"not null;unique"`
+}
+
+type Calendar struct {
+	ID     uint
+	Name   string
+	UserID uint
 }
 
 var users []User = []User{

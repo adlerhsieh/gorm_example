@@ -6,30 +6,11 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-func CRUD() {
+func crud(db *gorm.DB) {
 	fmt.Println("============================")
 	fmt.Println("CRUD")
 	fmt.Println("============================")
-	// Connection
-	db, err := gorm.Open("mysql", "gorm:gorm@/gorm?charset=utf8&parseTime=True&loc=Local")
-	if err != nil {
-		panic(err.Error())
-	}
-	defer db.Close()
 
-	dbase := db.DB()
-	defer dbase.Close()
-
-	// Ensure Connection
-	err = dbase.Ping()
-	if err != nil {
-		panic(err.Error())
-	}
-
-	// Create & Drop table
-	if db.HasTable(&User{}) {
-		db.DropTable(&User{})
-	}
 	db.CreateTable(&User{})
 
 	// Seeding db using custom model data
