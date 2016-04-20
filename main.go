@@ -13,6 +13,7 @@ func main() {
 	oneToOneRelationship(db)
 	oneToManyRelationship(db)
 	manyToManyRelationship(db)
+	crudAdvanced(db)
 	defer db.Close()
 }
 
@@ -25,5 +26,8 @@ func purgeDB(db *gorm.DB) {
 	}
 	if db.HasTable(&Appointment{}) {
 		db.DropTable(&Appointment{})
+	}
+	if db.HasTable(&TaskList{}) {
+		db.DropTable(&TaskList{})
 	}
 }

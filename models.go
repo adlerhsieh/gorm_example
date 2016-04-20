@@ -12,7 +12,8 @@ var users []User = []User{
 }
 
 type User struct {
-	ID uint
+	ID     uint
+	Salary int
 
 	// Set column type
 	Username  string `sql:"type:VARCHAR(255)"`

@@ -55,7 +55,7 @@ func crud(db *gorm.DB) {
 
 	// Add index with index_name, column_name
 	db.Model(&User{}).AddIndex("idx_first_name", "first_name")
-	db.Model(&User{}).AddUniqueIndex("idx_last_name", "last_name")
+	db.Model(&User{}).AddUniqueIndex("idx_username", "username")
 	// Remove index name
 	db.Model(&User{}).RemoveIndex("idx_first_name")
 }
