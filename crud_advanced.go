@@ -22,7 +22,17 @@ func crudAdvanced(db *gorm.DB) {
 	// Check if it is a new record
 	fmt.Println(db.NewRecord(&user))
 	db.Create(&user)
-	fmt.Println(db.NewRecord(&user))
+
+	// Find record that does not exist
+	// Use custom function to see if it extsts
+	u := User{}
+	db.Find(&u, 100)
+	fmt.Println(u.NotFound())
+
+	// Query multiple records
+	users := []User{}
+	db.Where(&User{Salary: 200}).Find(&users)
+	fmt.Println(users)
 
 	// Update with column names
 	db.Model(&user).Update("first_name", "zipp")
@@ -51,6 +61,9 @@ func crudAdvanced(db *gorm.DB) {
 	db.Table("users").Where("salary > ?", 3000).Delete(&User{})
 	// Select all records from a model and delete all
 	db.Model(&User{}).Delete(&User{})
+
+	// Delete record using ordinary deletetion
+	db.Unscoped().Delete(&user)
 
 	// Using Transaction to create
 	tx := db.Begin()

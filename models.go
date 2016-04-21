@@ -6,13 +6,13 @@ import (
 )
 
 var users []User = []User{
-	User{Username: "foobar", FirstName: "Foo", LastName: "Bar"},
-	User{Username: "helloworld", FirstName: "Hello", LastName: "World"},
-	User{Username: "john", FirstName: "John"},
+	User{Username: "foobar", FirstName: "Foo", LastName: "Bar", Salary: 200},
+	User{Username: "helloworld", FirstName: "Hello", LastName: "World", Salary: 200},
+	User{Username: "john", FirstName: "John", Salary: 200},
 }
 
 type User struct {
-	ID     uint
+	gorm.Model
 	Salary int
 
 	// Set column type
@@ -69,4 +69,9 @@ type Appointment struct {
 type TaskList struct {
 	gorm.Model
 	Appointments []Appointment `gorm:"polymorphic:owner"`
+}
+
+// NotFound checks if a record exists in the database
+func (u *User) NotFound() bool {
+	return u.Model.ID == 0
 }
